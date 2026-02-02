@@ -1,5 +1,6 @@
 import Hero from './components/Hero';
 import Services from './components/Services';
+import BeforeAfter from './components/BeforeAfter';
 import ServiceArea from './components/ServiceArea';
 import About from './components/About';
 import Contact from './components/Contact';
@@ -11,6 +12,7 @@ function App() {
     <div className="min-h-screen bg-white">
       <Hero />
       <Services />
+      <BeforeAfter />
       <ServiceArea />
       <About />
       <Contact />
