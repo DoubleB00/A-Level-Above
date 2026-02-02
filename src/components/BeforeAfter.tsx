@@ -25,7 +25,7 @@ const projects: Project[] = [
     id: 3,
     title: 'Exterior Siding Installation',
     before: '/att.k-nfrw1p1upnuy71v7oookzryhft1vwi79cepkxnvpo.jpg',
-    after: '/att.eddlcd3h4djpgntnpf2jz5j2iiij6k4i8kjygdkldu4.jpg',
+    after: '/att.6ckj5jdizsnqox90lv8aauu03addhv909qoy23xjy5u.jpg',
   },
 ];
 
