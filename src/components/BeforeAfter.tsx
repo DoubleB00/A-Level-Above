@@ -13,7 +13,7 @@ const projects: Project[] = [
     id: 1,
     title: 'Entry Door Replacement',
     before: '/att.rexb9hc1m3hdgh0_yghffzkhdbtd1qai2ksqnv0hmfy.jpg',
-    after: '/att.ultbxyjojckg7bbad62mp2bgagrqv6fxdmdb59czqeg.jpg',
+    after: '/att.kloutrz4mpynrcuep4u29idg705fdkfwjvq-39_mzuu.jpg',
   },
   {
     id: 2,
