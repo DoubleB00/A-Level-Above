@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Phone, Mail, MapPin, Send } from 'lucide-react';
-import { supabase } from '../lib/supabase';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -8,35 +7,17 @@ export default function Contact() {
     phone: '',
     message: ''
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus('idle');
 
-    try {
-      const { error } = await supabase
-        .from('contact_submissions')
-        .insert([
-          {
-            name: formData.name,
-            phone: formData.phone,
-            message: formData.message
-          }
-        ]);
+    const subject = `New Project Inquiry from ${formData.name}`;
+    const body = `Name: ${formData.name}\nPhone: ${formData.phone}\n\nMessage:\n${formData.message}`;
+    const mailtoLink = `mailto:info@alevelaboveconstruction.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-      if (error) throw error;
+    window.location.href = mailtoLink;
 
-      setSubmitStatus('success');
-      setFormData({ name: '', phone: '', message: '' });
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
-    }
+    setFormData({ name: '', phone: '', message: '' });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -178,37 +159,11 @@ export default function Contact() {
 
               <button
                 type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 disabled:bg-slate-400 disabled:from-slate-400 disabled:to-slate-400 text-white font-bold py-4 px-6 rounded-lg text-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 disabled:transform-none disabled:cursor-not-allowed flex items-center justify-center gap-3 border-2 border-blue-400 disabled:border-slate-300"
+                className="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-bold py-4 px-6 rounded-lg text-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center gap-3 border-2 border-blue-400"
               >
-                {isSubmitting ? (
-                  <>
-                    <span className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></span>
-                    Sending...
-                  </>
-                ) : (
-                  <>
-                    <Send className="w-5 h-5" />
-                    Send Message
-                  </>
-                )}
+                <Send className="w-5 h-5" />
+                Send Message
               </button>
-
-              {submitStatus === 'success' && (
-                <div className="bg-green-50 border-2 border-green-500 rounded-lg p-4 text-center">
-                  <p className="text-green-800 font-semibold">
-                    Thank you! We'll contact you soon.
-                  </p>
-                </div>
-              )}
-
-              {submitStatus === 'error' && (
-                <div className="bg-red-50 border-2 border-red-500 rounded-lg p-4 text-center">
-                  <p className="text-red-800 font-semibold">
-                    Something went wrong. Please call us instead.
-                  </p>
-                </div>
-              )}
             </form>
           </div>
         </div>
